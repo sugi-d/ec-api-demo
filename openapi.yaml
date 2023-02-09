@@ -1,0 +1,41 @@
+openapi:  "3.0.3"
+
+info: 
+  title: "EC API demo"
+  description: "APIs for C2C EC site demo"
+  version: "1.0.0"
+
+servers: 
+- url: "http://localhost:3000"
+  description: "local env"
+
+tags: 
+- name: "users"
+  description: "user manipulation"
+- name: "items"
+  description: "item management"
+- name: "order"
+  description: "purchasing items"
+
+paths:
+  "/v1/users/register":
+    put:
+      deprecated: false
+      requestBody:
+        description: "user information"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "user@example.com" }
+                password: { type: string, example: "qwerty" }
+      responses:
+        "201":
+          description: "the user has successfully created"
+      summary: "new user registration"
+      tags: ["users"]
+
+
+components: {}
