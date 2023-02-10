@@ -80,4 +80,7 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
     Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance'
   end
+
+  # OpenAPI definition
+  watch('openapi.yaml') { "#{rspec.spec_dir}/requests" }
 end
