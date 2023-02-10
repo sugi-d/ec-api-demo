@@ -47,6 +47,40 @@ paths:
       summary: "new user registration"
       tags: ["users"]
 
+  "/v1/users/sign_in":
+    post:
+      deprecated: false
+      requestBody:
+        description: "user credential"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: "user@example.com" }
+                password: { type: string, example: "qwerty" }
+      responses:
+        "200":
+          description: "the new token has issued"
+          headers:
+            Authorization:
+              description: "issued Bearer token"
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+        "401":
+          description: "the credential is invalid"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+      summary: "issue new API access token"
+      tags: ["users"]
+
 components:
   schemas:
     Status:
@@ -56,3 +90,8 @@ components:
       required:
         - status
       additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      description: Credentials or access token for API
