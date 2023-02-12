@@ -204,6 +204,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/AuthorizationErrors"
+        "422":
+          description: "the item has not been deleted"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Errors"
+
       summary: "update of a existing item"
       tags: ["items"]
       security:

@@ -121,6 +121,18 @@ RSpec.describe '/v1/items', type: :request do
         assert_response_schema_confirm(401)
       end
     end
+
+    context 'sold out items' do
+      before do
+        create(:order, item:, user: user2)
+      end
+
+      it 'rejects updates' do
+        patch v1_item_url(item),
+              params: { item: valid_attributes }, headers: valid_headers, as: :json
+        assert_response_schema_confirm(422)
+      end
+    end
   end
 
   describe 'DELETE /destroy' do
@@ -151,6 +163,15 @@ RSpec.describe '/v1/items', type: :request do
       it 'rejects the request' do
         delete v1_item_url(item), as: :json
         assert_response_schema_confirm(401)
+      end
+    end
+
+    context 'sold out items' do
+      before { create(:order, item:, user: user2) }
+
+      it 'rejects to delete' do
+        delete v1_item_url(item), headers: valid_headers, as: :json
+        assert_response_schema_confirm(422)
       end
     end
   end
