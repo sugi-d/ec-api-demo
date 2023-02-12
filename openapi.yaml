@@ -14,7 +14,7 @@ tags:
     description: "user manipulation"
   - name: "items"
     description: "item management"
-  - name: "order"
+  - name: "orders"
     description: "purchasing items"
 
 paths:
@@ -128,7 +128,7 @@ paths:
           schema:
             type: integer
           required: true
-          description: ID to delete
+          description: item ID
       responses:
         "200":
           description: "the requested item"
@@ -151,7 +151,7 @@ paths:
           schema:
             type: integer
           required: true
-          description: ID to delete
+          description: item ID
       requestBody:
         description: "item information"
         required: true
@@ -208,7 +208,71 @@ paths:
       tags: ["items"]
       security:
         - Bearer: []
-
+  "/v1/orders":
+    post:
+      deprecated: false
+      requestBody:
+        description: "target item"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item_id: { type: integer, example: 123 }
+      responses:
+        "201":
+          description: "the item has successfully purchased"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+        "422":
+          description: "the item couldnt be purchased"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+      summary: "purchase the item"
+      tags: ["orders"]
+      security:
+        - Bearer: []
+  "/v1/orders/{id}":
+    get:
+      deprecated: false
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: order ID
+      responses:
+        "200":
+          description: "the requested order"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "401":
+          description: "unauthorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizationErrors"
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Status"
+      tags: ["orders"]
 components:
   schemas:
     Status:
@@ -260,6 +324,17 @@ components:
       required:
         - id
         - email
+      additionalProperties: false
+    Order:
+      type: object
+      properties:
+        id: { type: integer, example: 123 }
+        buyer: { $ref: "#/components/schemas/User" }
+        item: { $ref: "#/components/schemas/Item" }
+      required:
+        - id
+        - buyer
+        - item
       additionalProperties: false
   securitySchemes:
     Bearer:
