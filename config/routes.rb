@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       registrations: 'v1/users/registrations',
       sessions: 'v1/users/sessions',
     }
+    resources :items, only: [:create, :update, :show, :destroy]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
