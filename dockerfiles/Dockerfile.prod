@@ -1,0 +1,6 @@
+FROM ruby:3.2.1
+
+COPY . /app
+WORKDIR /app
+RUN bundle
+CMD ./bin/entrypoint.prod.sh
