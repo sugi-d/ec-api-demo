@@ -1,0 +1,30 @@
+version: "3"
+
+volumes:
+  postgres:
+  bundle:
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - SECRET_KEY_BASE=hogehoge
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: "./"
+        target: "/app"
+      - bundle:/usr/local/bundle
+
+  postgres:
+    image: postgres:14
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=hogehoge
