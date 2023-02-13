@@ -1,5 +1,7 @@
 # ec-api-demo
 
+See openapi.yaml for API definition
+
 ## development
 
 ```
