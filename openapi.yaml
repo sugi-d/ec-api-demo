@@ -93,7 +93,7 @@ paths:
               type: object
               properties:
                 name: { type: string, example: "item 1" }
-                descriptios: { type: string, example: "item 1 description" }
+                description: { type: string, example: "item 1 description" }
                 price: { type: integer, example: 4980 }
       responses:
         "201":
@@ -163,7 +163,7 @@ paths:
               type: object
               properties:
                 name: { type: string, example: "item 1" }
-                descriptios: { type: string, example: "item 1 description" }
+                description: { type: string, example: "item 1 description" }
                 price: { type: integer, example: 4980 }
       responses:
         "200":
@@ -283,6 +283,8 @@ paths:
                 $ref: "#/components/schemas/Status"
       tags: ["orders"]
       summary: "retrieve an order"
+      security:
+        - Bearer: []
 
   "/":
     get:
