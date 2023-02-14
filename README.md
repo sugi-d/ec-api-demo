@@ -1,6 +1,8 @@
 # ec-api-demo
 
-See openapi.yaml for API definition
+See `openapi.yaml` for API definition.
+https://editor.swagger.io/ is available.
+For other OAS editors, you need to modify `config/initializers/cors.rb`.
 
 ## development
 
