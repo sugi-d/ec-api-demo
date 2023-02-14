@@ -22,6 +22,7 @@ services:
     environment:
       - EC_API_DEMO_DATABASE_PASSWORD=adminpassword
       - RAILS_ENV=production
+      - SECRET_KEY_BASE=49b8dafd44d408a0b8fccb2bf9f6cff6f44f79d3fd53fc7f3f699d949222d145d37fc8019e62283ec99723a346205827baf417c255c95a3c94370c53841211a4
 
   pg-0:
     image: docker.io/bitnami/postgresql-repmgr:14
